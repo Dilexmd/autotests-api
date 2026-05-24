@@ -12,7 +12,7 @@ class UserServiceServicer(user_service_pb2_grpc.GetServiceServicer):
 
 def serve():
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
-    user_service_pb2_grpc.add_GetServiceServicer_to_server(UserServiceServicer(),server)
+    user_service_pb2_grpc.add_GetServiceServicer_to_server(UserServiceServicer(), server)
     server.add_insecure_port('[::]:50051')
     server.start()
     print('gRPC сервер запущен на порту 50051...')
