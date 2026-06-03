@@ -49,18 +49,18 @@ import httpx
 
 
 
-# with httpx.Client() as client:
-#     response1 = client.get("https://jsonplaceholder.typicode.com/todos/1")
-#     response2 = client.get("https://jsonplaceholder.typicode.com/todos/2")
+# with httpx.Client() as clients:
+#     response1 = clients.get("https://jsonplaceholder.typicode.com/todos/1")
+#     response2 = clients.get("https://jsonplaceholder.typicode.com/todos/2")
 # print(response1.json())  # Данные первой задачи
 # print(response2.json())  # Данные второй задачи
 
 
 
-# client = httpx.Client(headers={"Authorization": "Bearer my_secret_token"})
-# response = client.get("https://httpbin.org/get")
+# clients = httpx.Client(headers={"Authorization": "Bearer my_secret_token"})
+# response = clients.get("https://httpbin.org/get")
 # print(response.json())  # Заголовки включены в ответ
-# client.close()
+# clients.close()
 
 
 
