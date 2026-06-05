@@ -4,7 +4,7 @@ from typing import TypedDict
 
 
 
-class LoginRequestDict(TypedDict):
+class CreateUserRequestDict(TypedDict):
     """
     Описание структуры запроса для создания пользователя.
     """
@@ -20,7 +20,7 @@ class PublicUsersClient(APIClient):
     Клиент для работы с /api/v1/users
     """
 
-    def create_users_api(self, request:LoginRequestDict)-> Response:
+    def create_users_api(self, request:CreateUserRequestDict)-> Response:
         """
         Метод выполняет создание пользователя
 
