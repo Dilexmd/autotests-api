@@ -1,7 +1,9 @@
-from clients.exercises.exercises_client import CreateExercisesRequestDict, get_exercises_client
+from clients.courses.courses_schema import CreateCourseRequestSchema
+from clients.exercises.exercises_client import get_exercises_client
+from clients.exercises.exercises_schema import CreateExercisesRequestSchema
 from clients.files.files_client import get_files_client
 from clients.files.files_schema import CreateFileRequestSchema
-from clients.courses.courses_client import get_courses_client, CreateCourseRequestDict
+from clients.courses.courses_client import get_courses_client
 from clients.private_http_builder import AuthenticationUserSchema
 from clients.users.public_users_client import get_public_users_client
 from clients.users.users_schema import CreateUserRequestSchema
@@ -56,8 +58,8 @@ print('Create file data:', create_file_response)
 """
 Создаем курс с помощью Нового пользователя и Файла, созданного ранее
 """
-create_course_request = CreateCourseRequestDict (
-    title='Python',
+create_course_request = CreateCourseRequestSchema (
+    title="Python",
     maxScore=100,
     minScore=10,
     description="Python API Course",
@@ -73,9 +75,9 @@ print('Create course data:', create_course_response)
 """
 Создаем задание для Курса, созданного ранее
 """
-create_exercise_request = CreateExercisesRequestDict (
-    title='Python',
-    courseId=create_course_response['course']['id'],
+create_exercise_request = CreateExercisesRequestSchema (
+    title="Python",
+    courseId=create_course_response.course.id,
     maxScore=15,
     minScore=0,
     orderIndex=1,
