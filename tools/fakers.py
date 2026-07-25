@@ -1,4 +1,104 @@
-import time
+from faker import Faker
 
-def get_random_email():
-    return f'test.{time.time()}@example.com'
+class Fake:
+    """
+    Класс для генерации случайных тестовых данных с испрользованием библиотеки Faker
+
+    """
+    def __init__(self,faker:Faker):
+        """
+        :param faker: Экземпляр класса Faker, который будет использоваться для генерации данных.
+        """
+        self.faker = faker
+
+    def text(self) -> str:
+        """
+        Генерирует случайный текст.
+
+        :return: Случайный текст.
+        """
+        return self.faker.text()
+
+    def uuid4(self)-> str:
+        """
+        Генерирует случайный UUID4
+        :return: Cлучайный UUID4
+        """
+        return self.faker.uuid4()
+
+    def email(self) -> str:
+        """
+        Генерирует случайный email
+        :return: Cлучайный email
+        """
+        return self.faker.email()
+
+    def sentence(self) -> str:
+        """
+        Генерирует случайное предложение
+        :return: Cлучайное предложение
+        """
+        return self.faker.sentence()
+
+    def password(self) -> str:
+        """
+        Генерирует случайный пароль
+        :return: Cлучайный пароль
+        """
+        return self.faker.password()
+
+    def last_name(self)-> str:
+        """
+        Генерирует случайное имя
+        :return: Cлучайное имя
+        """
+        return self.faker.last_name()
+
+    def first_name(self) -> str:
+        """
+        Генерирует случайную фамилию
+        :return: Cлучайную фамилию
+        """
+        return self.faker.first_name()
+
+    def middle_name(self) -> str:
+        """
+        Генерирует случайное отчество\среднее имя
+        :return: Cлучайное отчество\среднее имя
+        """
+        return self.faker.first_name()
+
+    def estimated_time(self)-> str:
+        """
+        Генерирует строку с предполагаемым временем (например, "2 weeks").
+
+        :return: Строка с предполагаемым временем.
+        """
+        return f"{self.integer(1,10)} weeks"
+
+    def integer(self,start: int = 1, end: int = 100) -> int:
+        """
+        Генерирует случайное целое число в заданном диапазоне.
+
+        :param start: Начало диапазона(включительно)
+        :param end: Конец диапазона (включительно)
+        :return: Случайное целое число
+        """
+        return self.faker.random_int(start,end)
+
+    def max_score(self) -> int:
+        """
+        Генерирует случайный максимальный балл в диапазоне от 50 до 100.
+        :return:
+        """
+        return self.integer(50,100)
+
+    def min_score(self)-> int:
+        """
+        Генерирует случайный минимальный балл в диапазоне от 1 до 30.
+        :return:
+        """
+        return self.integer(1,30)
+
+
+fake = Fake(faker=Faker())
