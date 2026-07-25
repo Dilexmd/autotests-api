@@ -7,7 +7,6 @@ from clients.users.users_schema import CreateUserRequestSchema, CreateUserRespon
 
 public_users_client = get_public_users_client()
 
-
 create_user_request = CreateUserRequestSchema(
     email=get_random_email(),
     password="string",
@@ -15,22 +14,16 @@ create_user_request = CreateUserRequestSchema(
     first_name="string",
     middle_name="string"
 )
+create_user_response = public_users_client.create_user(create_user_request)
 
-create_user_response = public_users_client.create_user_api(create_user_request)
-create_user_response_schema = CreateUserResponseSchema.model_json_schema()
-validate_json_schema(instance=create_user_response.json(),schema=create_user_response_schema)
-
-user_id = create_user_response.json()["user"]["id"]
-user_email = create_user_request.email
-
-auth_user = AuthenticationUserSchema(
-    email=user_email,
-    password="string"
+authentication_user = AuthenticationUserSchema(
+    email=create_user_request.email,
+    password=create_user_request.password
 )
 
-private_users_client = get_private_users_client(auth_user)
+private_users_client = get_private_users_client(authentication_user)
 
-get_user_data_response = private_users_client.get_user_api(user_id)
-get_user_data_response_schema = GetUserResponseSchema.model_json_schema()
+get_user_response = private_users_client.get_user_api(create_user_response.user.id)
+get_user_response_schema = GetUserResponseSchema.model_json_schema()
 
-validate_json_schema(instance=get_user_data_response.json(),schema=get_user_data_response_schema)
+validate_json_schema(instance=get_user_response.json(), schema=get_user_response_schema)
