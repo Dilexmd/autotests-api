@@ -55,7 +55,7 @@ def assert_create_file_with_empty_filename_response(actual: ValidationErrorRespo
     :raises AssertionError: Если фактический ответ не соответствует ожидаемому.
     """
     expected = ValidationErrorResponseSchema(
-        details=[
+        detail=[
             ValidationErrorSchema(
                 type="string_too_short",
                 input="",
@@ -76,7 +76,7 @@ def assert_create_file_with_empty_directory_response(actual: ValidationErrorResp
     :raises AssertionError: Если фактический ответ не соответствует ожидаемому.
     """
     expected = ValidationErrorResponseSchema(
-        details=[
+        detail=[
             ValidationErrorSchema(
                 type="string_too_short",
                 input="",
@@ -97,3 +97,23 @@ def assert_file_not_found_response(actual:InternalErrorResponseSchema):
     """
     expected = InternalErrorResponseSchema(details='File not found')
     assert_internal_internal_response(actual,expected)
+
+def assert_get_file_with_incorrect_file_id_response(actual: ValidationErrorResponseSchema):
+    expected = ValidationErrorResponseSchema(
+        detail=[
+            ValidationErrorSchema(
+                type="uuid_parsing",
+                input="incorrect-file-id",
+                context={"error": "invalid character:"
+                                  " expected an optional prefix of `urn:uuid:`"
+                                  " followed by [0-9a-fA-F-],"
+                                  " found `i` at 1"},
+                message="Input should be a valid UUID, invalid character:"
+                        " expected an optional prefix of `urn:uuid:`"
+                        " followed by [0-9a-fA-F-],"
+                        " found `i` at 1",
+                location=["path","file_id"]
+            )
+        ]
+    )
+    assert_validation_error_response(actual, expected)
