@@ -4,7 +4,7 @@ from clients.api_client import APIClient
 from clients.private_http_builder import AuthenticationUserSchema, get_private_http_client
 from clients.exercises.exercises_schema import (GetExercisesQuerySchema,
                                                 GetExercisesResponseSchema,
-                                                CreateExercisesRequestSchema,
+                                                CreateExerciseRequestSchema,
                                                 CreateExerciseResponseSchema,
                                                 UpdateExerciseRequestSchema,
                                                 UpdateExerciseResponseSchema
@@ -31,7 +31,7 @@ class ExercisesClient(APIClient):
         """
         return self.get(f'/api/v1/exercises/{exercise_id}')
 
-    def create_exercise_api(self,request:CreateExercisesRequestSchema)-> Response:
+    def create_exercise_api(self,request:CreateExerciseRequestSchema)-> Response:
         """
         Метод для создания заданий курса
         :param request: Словарь с title,courseId, maxScore, minScore, orderIndex, description, estimatedTime
@@ -65,7 +65,7 @@ class ExercisesClient(APIClient):
         response = self.get_exercise_api(exercise_id)
         return GetExercisesResponseSchema.model_validate_json(response.text)
 
-    def create_exercise(self, request:CreateExercisesRequestSchema) -> CreateExerciseResponseSchema:
+    def create_exercise(self, request:CreateExerciseRequestSchema) -> CreateExerciseResponseSchema:
         response = self.create_exercise_api(request)
         return CreateExerciseResponseSchema.model_validate_json(response.text)
 
