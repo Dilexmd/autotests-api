@@ -36,7 +36,7 @@ def assert_validation_error_response(
         assert_validation_error(actual.details[index],detail)
 
 
-def assert_internal_internal_response(
+def assert_internal_error_response(
     actual: InternalErrorResponseSchema,
     expected: InternalErrorResponseSchema
 ):

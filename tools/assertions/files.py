@@ -2,7 +2,7 @@ from clients.errors_schema import ValidationErrorResponseSchema, ValidationError
 from clients.files.files_schema import CreateFileResponseSchema, CreateFileRequestSchema, GetFileResponseSchema, \
     FileSchema
 from tools.assertions.base import assert_equal
-from tools.assertions.errors import assert_validation_error_response, assert_internal_internal_response
+from tools.assertions.errors import assert_validation_error_response, assert_internal_error_response
 
 
 def assert_create_file_response(request: CreateFileRequestSchema, response: CreateFileResponseSchema):
@@ -96,7 +96,7 @@ def assert_file_not_found_response(actual:InternalErrorResponseSchema):
     :return: AssertionError Если фактический ответ не соответствует ошибке "File not found"
     """
     expected = InternalErrorResponseSchema(details='File not found')
-    assert_internal_internal_response(actual,expected)
+    assert_internal_error_response(actual, expected)
 
 def assert_get_file_with_incorrect_file_id_response(actual: ValidationErrorResponseSchema):
     expected = ValidationErrorResponseSchema(
