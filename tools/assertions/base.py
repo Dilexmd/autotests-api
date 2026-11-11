@@ -53,7 +53,7 @@ def assert_length(actual: Sized, expected: Sized, name:str):
     :param expected: Ожидаемое значение
     """
     assert len(actual) == len(expected), (
-        f'Incorrect object length:"{name}".',
-        f'Expected length:"{len(expected)}".',
+        f'Incorrect object length:"{name}".'
+        f'Expected length:"{len(expected)}".'
         f'Actual length:{len(actual)}'
     )

@@ -24,7 +24,7 @@ class GetExercisesQuerySchema(BaseModel):
     courseId: str
 
 class GetExercisesResponseSchema(BaseModel):
-    exercise:list[ExerciseSchema]
+    exercises:list[ExerciseSchema]
 
 
 
