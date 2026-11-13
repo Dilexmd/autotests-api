@@ -15,10 +15,23 @@ from tools.assertions.courses import assert_update_course_response, assert_get_c
     assert_create_course_response
 from tools.assertions.schema import validate_json_schema
 
+import allure
+from tools.allure.epics import AllureEpic
+from tools.allure.features import AllureFeature
+from tools.allure.stories import AllureStory
+from tools.allure.tags import AllureTag
+from allure_commons.types import Severity
 
 @pytest.mark.courses
 @pytest.mark.regression
+@allure.tag(AllureTag.REGRESSION,AllureTag.COURSES)
+@allure.epic(AllureEpic.LMS)
+@allure.feature(AllureFeature.COURSES)
 class TestCourses:
+    @allure.tag(AllureTag.GET_ENTITIES)
+    @allure.story(AllureStory.GET_ENTITIES)
+    @allure.title('Get course')
+    @allure.severity(Severity.BLOCKER)
     def test_get_courses(
         self,
         courses_client: CoursesClient,
@@ -34,8 +47,10 @@ class TestCourses:
 
         validate_json_schema(response.json(), response_data.model_json_schema())
 
-
-
+    @allure.tag(AllureTag.UPDATE_ENTITY)
+    @allure.story(AllureStory.UPDATE_ENTITY)
+    @allure.title('Update course')
+    @allure.severity(Severity.CRITICAL)
     def test_update_course(self,courses_client:CoursesClient,function_course:CourseFixture):
         request = UpdateCourseRequestSchema()
         response = courses_client.update_course_api(function_course.response.course.id,request)
@@ -46,7 +61,10 @@ class TestCourses:
 
         validate_json_schema(response.json(),response_data.model_json_schema())
 
-
+    @allure.tag(AllureTag.CREATE_ENTITY)
+    @allure.story(AllureStory.CREATE_ENTITY)
+    @allure.title('Create course')
+    @allure.severity(Severity.BLOCKER)
     def test_create_course(
         self,
         courses_client:CoursesClient,
