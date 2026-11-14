@@ -21,10 +21,13 @@ from tools.allure.features import AllureFeature
 @allure.epic(AllureEpic.LMS)
 @allure.feature(AllureFeature.AUTHENTICATION)
 @allure.tag(AllureTag.REGRESSION, AllureTag.AUTHENTICATION)
+@allure.parent_suite(AllureEpic.LMS)
+@allure.suite(AllureFeature.AUTHENTICATION)
 class TestAuthentication:
     @allure.severity(Severity.BLOCKER)
     @allure.story(AllureStory.LOGIN)
     @allure.title('Login with correct email and password')
+    @allure.sub_suite(AllureStory.LOGIN)
     def test_login(self,function_user: UserFixture, authentication_client: AuthenticationClient):
         request = LoginRequestSchema(email=function_user.email, password=function_user.password)
         response = authentication_client.login_api(request)
